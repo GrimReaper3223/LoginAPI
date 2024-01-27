@@ -9,9 +9,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Contem as anotacoes informativasa pertinentes a classe que ela e implementada
+ * Contem as anotacoes informativas pertinentes a classe que ela e implementada
  * 
  * @author Deiv
+ * @since 1.0-SNAPSHOT
  */
 @Documented                                 //permite que essas anotacoes aparecam no javadoc
 @Target(ElementType.TYPE)                   //define que estas anotacoes so poderao ser utilizadas em classes, interfaces, enums, etc.
@@ -49,7 +50,7 @@ public @interface ClassInfo {
     String since() default "v1.0-SNAPSHOT";
 
     /**
-     * indica quantas revisoes essa classe ja passou. cada alteracao se torna uma revisao
+     * indica quantas revisoes essa classe ja passou. cada alteracao e deploy se torna uma revisao
      * 
      * @return quantas revisoes foram feitas na classe
      */
