@@ -22,26 +22,16 @@ import metadata.ClassInfo;
         author = "Deiv",
         date = "22/01/2024",
         
-        version = "v1.0-SNAPSHOT",
-        revision = 1,
+        version = "1.1-SNAPSHOT",
+        revision = 2,
         
-        lastModified = "22-01-2024",
-        lastModifiedBy = "Deiv"
+        lastModified = "26-01-2024"
 )
 
 public class DataStructure {
-    
 
-    /**
-     * maximo de usuarios que podem ser registrados no sistema
-     */
     public static final int MAX_USERS = 100;
-
-    /**
-     * maximo de admins que podem ser registrados no sistema
-     */
     public static final int MAX_ADMINS = 3;
-    
     
     /**
      * estrutura de dados simples que armazena dados de usuarios registrados. 
@@ -49,7 +39,7 @@ public class DataStructure {
      * 
      * O tipo desta estrutura corresponde com o tipo de dado de usuario (Register)
      */
-    public static Register[] registeredUsers = new Register[MAX_USERS];
+    public static UserRegisterComponent[] registeredUsers = new UserRegisterComponent[MAX_USERS];
 
     /**
      * estrutura de dados simples que armazena dados de administradores registrados.
@@ -57,20 +47,23 @@ public class DataStructure {
      * 
      * O tipo desta estrutura corresponde com o tipo de dado de administrador (AdminRegister)
      */
-    public static AdminRegister[] registeredAdmins = new AdminRegister[MAX_ADMINS];
+    public static AdminRegisterComponent[] registeredAdmins = new AdminRegisterComponent[MAX_ADMINS];
     
     
     /**
      * estrutura de dados bidimensional que armazena dados de hash de usuarios e administradores registrados
      * a primeira dimensao tem o tamanho maximo de MAX_USERS + MAX_ADMINS
-     * a segunda dimensao tem o tamanho maximo de 2
+     * a segunda dimensao tem o tamanho maximo de 3
      * 
      * o primeiro indice da segunda dimensao armazena o hash de email e senha de contas criadas no sistema, seja de admins ou usuarios.
      * o segundo indice da segunda dimensao armazena o indice do nivel de acesso enum da conta (0 = admin, 1 = user)
+     * o terceiro indice da segunda dimensao armazena o indice onde a conta do usuario esta localizada na estrutura de dados de registro de informacoes
      * 
      * durante o login, o hash e comparado com o primeiro indice da segunda dimensao da matriz
      * se o hash corresponder ao indice, sera acessado o segundo indice para saber qual tipo de conta esta sendo acessado.
+     * Tambem o acesso sera feito ao terceiro indice, que obtem o indice de onde o usuario verificado esta armazenado na array de informacoes pessoais
+     * 
      * Isso serve para manipular o login. Caso o tipo seja um USER, o sistema ira entrar. Caso seja um ADMIN, um accessCode sera requerido
      */
-    public static int[][] hashVerification = new int[MAX_USERS + MAX_ADMINS][2];
+    public static Integer[][] hashVerification = new Integer[MAX_USERS + MAX_ADMINS][3];
 }
