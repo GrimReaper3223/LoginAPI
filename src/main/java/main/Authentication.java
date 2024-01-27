@@ -7,19 +7,22 @@ import registerfiles.DataStructure;
 
 /**
  * Interface que faz a autenticacao de usuarios e admins no sistema.
+ * 
  * @author deiv
+ * @deprecated Uma nova interface melhorada foi criada no pacote accounthandler#Authenticator
+ * @see accounthandler.Authenticator para mais informacoes
  */
 @ClassInfo (
         author = "Deiv",
         date = "22/01/2024",
         
-        version = "v1.0-SNAPSHOT",
-        revision = 1,
+        version = "1.0-SNAPSHOT",
+        revision = 2,
         
-        lastModified = "22-01-2024",
-        lastModifiedBy = "Deiv"
+        lastModified = "26-01-2024"
 )
 
+@Deprecated(forRemoval = true, since = "1.1-SNAPSHOT")
 public interface Authentication {
         
     /**

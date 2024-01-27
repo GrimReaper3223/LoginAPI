@@ -1,6 +1,7 @@
 package main;
 
 import accesslevel.AccessLevel;
+import accounthandler.*;
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -17,17 +18,14 @@ import registerfiles.*;
         author = "Deiv",
         date = "22/01/2024",
         
-        version = "v1.0-SNAPSHOT",
-        revision = 1,
+        version = "1.1-SNAPSHOT",
+        revision = 2,
         
-        lastModified = "22-01-2024",
-        lastModifiedBy = "Deiv"
+        lastModified = "26-01-2024"
 )
 
-public class LoginAPI implements Authentication {
-    
-    //cria uma referencia estatica para instancia de um objeto Scanner
-    static Scanner scanner;
+public class LoginAPI implements Authenticator {
+    static Scanner scanner = new Scanner(System.in);
     
     
     /**
@@ -48,7 +46,6 @@ public class LoginAPI implements Authentication {
         int userInput = 0;
 
         try {
-            scanner = new Scanner(System.in);
             System.out.println("\nLogin Manager v1.0-SNAPSHOT\n");
             System.out.println("Select an Option: \n");
             System.out.print("1 - Login \n2 - Register \n3 - Exit\n\n>> ");
@@ -62,17 +59,21 @@ public class LoginAPI implements Authentication {
         } catch (InputMismatchException ime) {
             System.err.println("\nCaught InputMismatchException: " + ime.getMessage());
             System.err.print("Enter only numbers\n");
+            scanner = cleanScannerBuffer(scanner);
+            main();
         }
         
         // o valor de entrada entao e checado e cai num case correspondente
         try {
             switch(userInput) {
                 case 1 -> {
-                    login();
+                    Login login = new Login();
+                    System.out.print(login.loginAuthentication());  
                     break;
                 }
                 case 2 -> {
-                    register();
+                    Register register = new Register();
+                    System.out.print(register.register());
                     main();
                     break;
                 }
@@ -81,11 +82,19 @@ public class LoginAPI implements Authentication {
                     scanner.close();
                     break;
                 }
-                default -> cleanScannerBuffer();
+                default -> scanner = cleanScannerBuffer(scanner);
             }
             
-        } catch(NullPointerException | ArrayIndexOutOfBoundsException | InputMismatchException e) {
-            System.err.println("Message error: " + e.getMessage());
+        } catch(NullPointerException | InputMismatchException e) {
+            System.err.println("Error: " + e.getMessage());
+            
+            if(e.getCause() != null) {
+                System.err.println(e.getCause());
+            }
+            
+            //garantindo a limpeza do scanner apos uma excessao
+            scanner = cleanScannerBuffer(scanner);
+            main();
         }
     }
     
@@ -105,7 +114,10 @@ public class LoginAPI implements Authentication {
      * @throws NullPointerException - Se nenhuma instancia de nivel de acesso for retornado (null)
      * @throws InputMismatchException  - Se os dados inseridos no objeto Scanner nao corresponder ao tipo de variavel
      * @since 1.0
+     * @deprecated Existe uma nova classe de login mais otimizada e eficiente em outro pacote
+     * @see accounthandler.Login#loginAuthentication() - novo metodo de login que substitui este
      */
+    @Deprecated(forRemoval = true, since = "1.1-SNAPSHOT")
     public static void login() throws NullPointerException, InputMismatchException {
         
         String emailInput, passwordInput;
@@ -171,14 +183,15 @@ public class LoginAPI implements Authentication {
      * @throws InputMismatchException - Se algum dado inserido nao corresponder ao tipo da variavel
      * @author Deiv
      * @since 1.0
+     * @deprecated existe uma nova classe de registro mais eficiente e otimizada em outro pacote
+     * @see accounthandler.Register#register() - novo metodo que substitui este
      */
-    @SuppressWarnings("deprecation")
+    @Deprecated(forRemoval = true, since = "1.1-SNAPSHOT")
     public static void register() throws ArrayIndexOutOfBoundsException, InputMismatchException {
         
         //variaveis temporarias que armazenarao dados de registro para insercao na estrutura de dados
         String nameInput, emailInput, passwordInput;
-        long phoneInput;
-        
+        Long phoneInput;
         
         //pergunta se o usuario que esta sendo registrado possui uma chave publica. A chave publica serve para registrar um admin
         //caso nao haja, sera registrado um usuario
@@ -197,14 +210,14 @@ public class LoginAPI implements Authentication {
                 do {
                     System.out.print("Public Key: ");
                     pubKey = scanner.nextInt();
-                } while(pubKey != AdminRegister.getPubKey() || pubKey == 0);
+                } while(pubKey != AdminRegisterComponent.getPubKey() || pubKey == 0);
                 
-                isValidPubKey = pubKey == AdminRegister.getPubKey();
+                isValidPubKey = pubKey == AdminRegisterComponent.getPubKey();
                 
-                cleanScannerBuffer();
+                scanner = cleanScannerBuffer(scanner);
                 break;
             }
-            case "n", "no" -> cleanScannerBuffer();
+            case "n", "no" -> scanner = cleanScannerBuffer(scanner);
             
             default -> {
                 System.err.println("\nInvalid Option. Input (y)es or (n)o");
@@ -225,20 +238,20 @@ public class LoginAPI implements Authentication {
         passwordInput = scanner.next();
             
         if(isValidPubKey) {
-            DataStructure.registeredAdmins[Register.getIdIterator()] = new AdminRegister(nameInput, phoneInput, emailInput, passwordInput);
-            DataStructure.hashVerification[Register.getIdIterator()][0] = Objects.hash(emailInput, passwordInput);
-            DataStructure.hashVerification[Register.getIdIterator()][1] = DataStructure.registeredAdmins[Register.getIdIterator()].getAccountLevel().ordinal();
+            DataStructure.registeredAdmins[UserRegisterComponent.getIdIterator()] = new AdminRegisterComponent(nameInput, phoneInput.toString(), emailInput, passwordInput);
+            DataStructure.hashVerification[UserRegisterComponent.getIdIterator()][0] = Objects.hash(emailInput, passwordInput);
+            DataStructure.hashVerification[UserRegisterComponent.getIdIterator()][1] = DataStructure.registeredAdmins[UserRegisterComponent.getIdIterator()].getAccountLevel().ordinal();
             
-            System.out.printf("%nAdmin %s successful registered. Your access code is %d.%n", nameInput, DataStructure.registeredAdmins[Register.getIdIterator()].getAccessCode());
-            Register.increaseIdIterator();
+            System.out.printf("%nAdmin %s successful registered. Your access code is %d.%n", nameInput, DataStructure.registeredAdmins[UserRegisterComponent.getIdIterator()].getAccessCode());
+            UserRegisterComponent.increaseIdIterator();
             
         } else {
-            DataStructure.registeredUsers[Register.getIdIterator()] = new Register(nameInput, phoneInput, emailInput, passwordInput);
-            DataStructure.hashVerification[Register.getIdIterator()][0] = Objects.hash(emailInput, passwordInput);
-            DataStructure.hashVerification[Register.getIdIterator()][1] = DataStructure.registeredUsers[Register.getIdIterator()].getAccountLevel().ordinal();
+            DataStructure.registeredUsers[UserRegisterComponent.getIdIterator()] = new UserRegisterComponent(nameInput, phoneInput.toString(), emailInput, passwordInput);
+            DataStructure.hashVerification[UserRegisterComponent.getIdIterator()][0] = Objects.hash(emailInput, passwordInput);
+            DataStructure.hashVerification[UserRegisterComponent.getIdIterator()][1] = DataStructure.registeredUsers[UserRegisterComponent.getIdIterator()].getAccountLevel().ordinal();
             
             System.out.printf("%nUser %s successful registered. Log into your account.%n", nameInput);
-            Register.increaseIdIterator();
+            UserRegisterComponent.increaseIdIterator();
         }
     }
     
@@ -249,10 +262,12 @@ public class LoginAPI implements Authentication {
      * Esse metodo e necessario para que o buffer do scanner seja limpo
      * 
      * @author Deiv
-     * @since 1.0
+     * @param scannerInstance recebe a instancia de um Scanner para resetar as informacoes armazenadas
+     * @return uma nova instancia de Scanner para a variavel de referencia
+     * @since 1.1-SNAPSHOT
      */
-    public static void cleanScannerBuffer() {
-        scanner.reset();
-        scanner = new Scanner(System.in);
+    public static Scanner cleanScannerBuffer(Scanner scannerInstance) {
+        scannerInstance.reset();
+        return new Scanner(System.in);
     }
 }
