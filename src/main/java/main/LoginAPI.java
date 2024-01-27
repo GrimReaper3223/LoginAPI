@@ -46,7 +46,7 @@ public class LoginAPI implements Authenticator {
         int userInput = 0;
 
         try {
-            System.out.println("\nLogin Manager v1.0-SNAPSHOT\n");
+            System.out.println("\nLogin Manager v1.1-SNAPSHOT\n");
             System.out.println("Select an Option: \n");
             System.out.print("1 - Login \n2 - Register \n3 - Exit\n\n>> ");
             userInput = scanner.nextInt();
