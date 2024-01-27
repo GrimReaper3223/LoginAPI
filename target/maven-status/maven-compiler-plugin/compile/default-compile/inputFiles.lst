@@ -1,6 +1,9 @@
-/home/deiv/NetBeansProjects/LoginAPI/src/main/java/registerfiles/Register.java
-/home/deiv/NetBeansProjects/LoginAPI/src/main/java/registerfiles/AdminRegister.java
+/home/deiv/NetBeansProjects/LoginAPI/src/main/java/accounthandler/Authenticator.java
 /home/deiv/NetBeansProjects/LoginAPI/src/main/java/metadata/ClassInfo.java
+/home/deiv/NetBeansProjects/LoginAPI/src/main/java/accounthandler/Register.java
+/home/deiv/NetBeansProjects/LoginAPI/src/main/java/registerfiles/UserRegisterComponent.java
+/home/deiv/NetBeansProjects/LoginAPI/src/main/java/accounthandler/Login.java
+/home/deiv/NetBeansProjects/LoginAPI/src/main/java/registerfiles/AdminRegisterComponent.java
 /home/deiv/NetBeansProjects/LoginAPI/src/main/java/main/LoginAPI.java
 /home/deiv/NetBeansProjects/LoginAPI/src/main/java/registerfiles/DataStructure.java
 /home/deiv/NetBeansProjects/LoginAPI/src/main/java/accesslevel/AccessLevel.java

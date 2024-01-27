@@ -1,8 +1,12 @@
+accounthandler/Login.class
 metadata/ClassInfoContainer.class
+accounthandler/Login$1.class
+accounthandler/Register.class
 metadata/ClassInfo.class
-registerfiles/AdminRegister.class
-registerfiles/Register.class
+accounthandler/Authenticator.class
+registerfiles/UserRegisterComponent.class
 main/LoginAPI.class
 accesslevel/AccessLevel.class
 registerfiles/DataStructure.class
 main/Authentication.class
+registerfiles/AdminRegisterComponent.class
