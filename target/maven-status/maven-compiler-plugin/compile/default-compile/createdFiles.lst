@@ -8,5 +8,4 @@ registerfiles/UserRegisterComponent.class
 main/LoginAPI.class
 accesslevel/AccessLevel.class
 registerfiles/DataStructure.class
-main/Authentication.class
 registerfiles/AdminRegisterComponent.class

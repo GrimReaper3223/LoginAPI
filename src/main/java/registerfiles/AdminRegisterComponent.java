@@ -19,12 +19,6 @@ public class AdminRegisterComponent extends UserRegisterComponent {
     
     Random rng = new Random();
     
-    
-    // chave publica que atribui o registro a conta de admin quanto usada (codigo simbolico. futuramente usarei outros meios de verificacao)
-    @Deprecated(forRemoval = true, since = "1.0-SNAPSHOT")
-    private static final int ADMIN_REG_KEY = 197256;
-    
-    
     // o codigo de acesso sera um numero de 4 digitos gerado aleatoriamente pela variavel de referencia rng
     private final int accessCode;
     
@@ -60,16 +54,6 @@ public class AdminRegisterComponent extends UserRegisterComponent {
         return adminHashEmailPassAccessCode;
     }
 
-    /**
-     * @return chave publica de registro de admins.
-     * @deprecated Este metodo esta obsoleto desde esta versao inicial.
-     * foi incluido neste projeto para fins de teste de seguranca. Futuramente sera substituido por outra funcao mais eficiente
-     */
-    @Deprecated(forRemoval = true, since = "1.0-SNAPSHOT")
-    public static final int getPubKey() {
-        return ADMIN_REG_KEY;
-    }
-    
     @Override
     public int getId() {
         return adminId;
