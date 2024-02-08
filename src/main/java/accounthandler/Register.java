@@ -17,11 +17,11 @@ import registerfiles.*;
         author = "Deiv",
         date = "26/01/2024",
         
-        version = "1.1-SNAPSHOT",
+        version = "1.2-SNAPSHOT",
         since = "1.1-SNAPSHOT",
-        revision = 1,
+        revision = 2,
         
-        lastModified = "26-01-2024"
+        lastModified = "07-02-2024"
 )
 public class Register {
     
@@ -38,30 +38,9 @@ public class Register {
     //tamanho minimo do registro de senha
     public final int PASSWORD_MIN_LEN = 6;
     
-    
+    // construtor...
     public Register() {}
 
-    
-    //para depuracao desta classe
-//    public static void main(String... args) {
-//        
-//        try {
-//            register();
-//            
-//        } catch (InputMismatchException e) {
-//            
-//            System.err.println("Error: " + e.getMessage());
-//            
-//            if(e.getCause() != null) {
-//                System.err.println(e.getCause());
-//            }
-//            
-//        } finally {
-//            sc.remove();
-//            main();
-//        }
-//    }
-    
     
     /**
      * Registra um usuario
@@ -76,8 +55,9 @@ public class Register {
      */
     public String register() throws InputMismatchException {
         sc = new Scanner(System.in);
-        String name, formattedPhoneNumber, formattedEmailInput, passwordInput;
+        String firstName, lastName, name, formattedPhoneNumber, formattedEmailInput, passwordInput;
         
+        //verifica se existe espaco na estrutura de dados para registrar mais um usuario
         boolean isFull = UserRegisterComponent.getIdIterator() < DataStructure.MAX_USERS;
         
         if(!isFull && DataStructure.registeredUsers[UserRegisterComponent.getIdIterator()] != null) {
@@ -85,18 +65,23 @@ public class Register {
         }
         
         try {
-            System.out.print("Name: ");
-            name = sc.nextLine();
+            System.out.println("All fields marked with * are mandatory\n");
+            System.out.print("First Name*: ");
+            firstName = sc.next();
             
-            System.out.print("Phone: ");
+            System.out.print("Last Name*: ");
+            lastName = sc.next();
+            name = nameFormatter(firstName, lastName);
+            
+            System.out.print("Phone (enter 0 if don't have): ");
             Long phoneNumberInput = sc.nextLong();
             formattedPhoneNumber = phoneFormatter(phoneNumberInput);
             
-            System.out.print("E-mail: ");
+            System.out.print("E-mail*: ");
             String emailInput = sc.next();
             formattedEmailInput = emailFormatter(emailInput);
             
-            System.out.print("Password (min. 6 characters): ");
+            System.out.print("Password (min. 6 characters)*: ");
             passwordInput = sc.next();
             
             if(passwordInput.length() < PASSWORD_MIN_LEN) {
@@ -105,20 +90,29 @@ public class Register {
             
             System.out.println("\nIs the data entered correct?(Y/n):\n");
             System.out.printf(" Name: %s;%n Phone: %s;%n E-mail: %s;%n Password: %s;%n%n>> ", name, formattedPhoneNumber, formattedEmailInput, passwordInput);
-            String choose = sc.next().toLowerCase();
+            String choose;
             
-            do {
-                if(choose.equals("n")) {
-                    System.out.println("Restarting registration process...\n");
-                    choose = "";
-                    sc.reset();
-                    register();
-                    
-                } else if(choose.equals("y")) {
-                    break;
+            //interruptor para o loop do-while
+            boolean trueCondition = false;
+
+            do { 
+                sc.reset();
+                sc = new Scanner(System.in);
+                choose = sc.next().toLowerCase();
+                
+                switch(choose) {
+                    case "y", "yes":
+                        trueCondition = true;
+                        break;
+                    case "n", "no":
+                        System.out.println("Restarting registration process...\n");
+                        sc.reset();
+                        register();
+                        break;
+                    default: System.err.println("Invalid option. Try again");
                 }
                 
-            } while(!choose.equals("y") || !choose.equals("n"));
+            } while(!trueCondition);
             
         } catch (NullPointerException e) {
             throw (InputMismatchException) new InputMismatchException("Cause of this throwing: ").initCause(e);
@@ -132,9 +126,56 @@ public class Register {
         
         UserRegisterComponent.increaseIdIterator();
         
-        return String.format("User %s registered. Please, log in to your account", name);
+        return String.format("User %s registered. Please, log in to your account", name.substring(0, name.indexOf(" ")));
     }
     
+    /**
+     * Verifica inconsistencias digitadas no nome de um usuario ao efetuar o registro.
+     * Se o nome for valido, os caracteres iniciais do nome e do sobrenome passarao a ser maiusculos
+     * caso contrario, uma excessao sera lancada
+     * 
+     * @param firstName o primeiro nome de usuario
+     * @param lastName o sobrenome ou ultimo nome de usuario
+     * @return uma String caso tudo esteja correto
+     * @throws InputMismatchException se o nome inserido nao for valido ou os parametros estiverem em branco
+     */
+    private String nameFormatter(String firstName, String lastName) {
+        //caracteres especiais e numericos para verificacao
+        String invalidChar = "~`!@#$%^&*()_-+={[}]|\\:;\"\'<,>.?/0123456789";
+        
+        //cria uma string unica de nome + sobrenome
+        String nameCheck = firstName.concat(lastName);
+        
+        //cria um array do tamanho da string de nome unica
+        String[] iteratedNameArray = new String[nameCheck.length()];
+        
+        //Obtem o valor em formato string do caractere no indice i de nameCheck(nome concatenado) e insere na array iteratedNameArray
+        for(var i = 0; i < iteratedNameArray.length; i++) {
+            iteratedNameArray[i] = String.valueOf(nameCheck.charAt(i));
+        }
+        
+        //loop que recebe cada item anteriormente iterado e passa em uma variavel
+        for(var valueCheck : iteratedNameArray) {
+            if(invalidChar.contains(valueCheck)) {
+                throw new InputMismatchException("Invalid name. Try again");
+            }
+        }
+        
+        //reatribui os parametros para as arrays para evitar embaralhamento do nome
+        char[] charArrFirstName = firstName.toCharArray();
+        char[] charArrLastName = lastName.toCharArray();
+
+        //converte a primeira letra de cada nome
+        charArrFirstName[0] = Character.toUpperCase(charArrFirstName[0]);
+        charArrLastName[0] = Character.toUpperCase(charArrLastName[0]);
+
+        //reconstroi a string com as iniciais convertidas
+        String modifiedFirstName = new String(charArrFirstName);
+        String modifiedLastName = new String(charArrLastName);
+
+        //retorna uma concatenacao do primeiro nome + espaco + segundo nome modificados
+        return modifiedFirstName + " " + modifiedLastName;
+    }
     
     /**
      * Recebe um numero de telefone como argumento. O numero, entao, e submetido a 
@@ -150,7 +191,9 @@ public class Register {
         //instrucao try-with-resources que fecha o recurso quando o processamento terminar
         try(Formatter formatter = new Formatter()) {
         
-            if(phoneNumber.toString().length() < PHONE_NUMBER_LENGTH || phoneNumber.toString().length() > PHONE_NUMBER_LENGTH) {
+            if(phoneNumber == 0) {
+                return null;
+            } else if(phoneNumber.toString().length() < PHONE_NUMBER_LENGTH || phoneNumber.toString().length() > PHONE_NUMBER_LENGTH) {
                 throw new InputMismatchException("Invalid phone number. Try again");
             }
 

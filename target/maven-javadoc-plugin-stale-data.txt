@@ -19,11 +19,11 @@
 -docencoding
 'UTF-8'
 -doctitle
-'LoginAPI 1.1.1-SNAPSHOT API'
+'LoginAPI 1.2-SNAPSHOT API'
 -use
 -version
 -windowtitle
-'LoginAPI 1.1.1-SNAPSHOT API'
+'LoginAPI 1.2-SNAPSHOT API'
 accesslevel
 metadata
 main
@@ -104,25 +104,25 @@ registerfiles
 /home/deiv/.m2/repository/org/apache/commons/commons-compress/1.24.0/commons-compress-1.24.0.jar = 1693831369000
 /home/deiv/.m2/repository/org/iq80/snappy/snappy/0.4/snappy-0.4.jar = 1692975196780
 /home/deiv/.m2/repository/org/codehaus/plexus/plexus-interactivity-api/1.1/plexus-interactivity-api-1.1.jar = 1693842755524
-/home/deiv/NetBeansProjects/LoginAPI/src/main/java = 1706653824222
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/allpackages-index.html = 1706654552105
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/stylesheet.css = 1706654552165
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/tag-search-index.js = 1706654552105
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/element-list = 1706654551845
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/search.js = 1706654552169
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/module-search-index.js = 1706654552105
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/help-doc.html = 1706654552161
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/member-search-index.js = 1706654552105
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/search-page.js = 1706654552169
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/search.html = 1706654552149
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/type-search-index.js = 1706654552105
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/link.svg = 1706654552165
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/constant-values.html = 1706654551929
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/allclasses-index.html = 1706654552101
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/overview-summary.html = 1706654552153
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/index-all.html = 1706654552149
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/copy.svg = 1706654552165
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/package-search-index.js = 1706654552105
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/index.html = 1706654552061
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/script.js = 1706654552165
-/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/overview-tree.html = 1706654552045
+/home/deiv/NetBeansProjects/LoginAPI/src/main/java = 1707323264176
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/allpackages-index.html = 1707427772399
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/stylesheet.css = 1707427772467
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/tag-search-index.js = 1707427772399
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/element-list = 1707427772139
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/search.js = 1707427772471
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/module-search-index.js = 1707427772399
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/help-doc.html = 1707427772463
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/member-search-index.js = 1707427772399
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/search-page.js = 1707427772475
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/search.html = 1707427772455
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/type-search-index.js = 1707427772399
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/link.svg = 1707427772471
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/constant-values.html = 1707427772239
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/allclasses-index.html = 1707427772395
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/overview-summary.html = 1707427772455
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/index-all.html = 1707427772451
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/copy.svg = 1707427772467
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/package-search-index.js = 1707427772399
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/index.html = 1707427772359
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/script.js = 1707427772467
+/home/deiv/NetBeansProjects/LoginAPI/target/site/apidocs/overview-tree.html = 1707427772351

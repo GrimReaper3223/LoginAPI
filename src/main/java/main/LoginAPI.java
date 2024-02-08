@@ -15,10 +15,10 @@ import metadata.ClassInfo;
         author = "Deiv",
         date = "22/01/2024",
         
-        version = "1.1.1-SNAPSHOT",
-        revision = 3,
+        version = "1.2-SNAPSHOT",
+        revision = 4,
         
-        lastModified = "30-01-2024"
+        lastModified = "08-02-2024"
 )
 
 public class LoginAPI implements Authenticator {
@@ -37,19 +37,26 @@ public class LoginAPI implements Authenticator {
      * @param args 
      * @author Deiv
      */
-    @SafeVarargs
     public static void main(String... args) {
         int userInput = 0;
 
         try {
-            System.out.println("\nLogin Manager v1.1-SNAPSHOT\n");
-            System.out.println("Select an Option: \n");
-            System.out.print("1 - Login \n2 - Register \n3 - Exit\n\n>> ");
+            System.out.print("""
+                               Login Manager v1.2-SNAPSHOT
+                               
+                               Select an Option:
+                               
+                               1 - Login
+                               2 - Register
+                               3 - Exit
+                               
+                               >> """);
+            
             userInput = scanner.nextInt();
             
-            // verifica se a opcao digitada esta incluida no menu
             if(userInput < 1 || userInput > 3) {
                 System.out.println("Invalid option. Try again...");
+                main();
             }
             
         } catch (InputMismatchException ime) {
@@ -59,7 +66,6 @@ public class LoginAPI implements Authenticator {
             main();
         }
         
-        // o valor de entrada entao e checado e cai num case correspondente
         try {
             switch(userInput) {
                 case 1 -> {

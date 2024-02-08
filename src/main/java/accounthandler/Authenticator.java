@@ -1,6 +1,7 @@
 package accounthandler;
 
 import accesslevel.AccessLevel;
+import java.util.NoSuchElementException;
 import metadata.ClassInfo;
 import registerfiles.DataStructure;
 
@@ -14,11 +15,11 @@ import registerfiles.DataStructure;
         author = "Deiv",
         date = "26/01/2024",
         
-        version = "1.1-SNAPSHOT",
+        version = "1.2-SNAPSHOT",
         since = "1.1-SNAPSHOT",
-        revision = 1,
+        revision = 2,
         
-        lastModified = "26-01-2024"
+        lastModified = "08-02-2024"
 )
 public interface Authenticator {
     
@@ -39,7 +40,8 @@ public interface Authenticator {
         
         for (Integer[] hashVerification : DataStructure.hashVerification) {
             if (hashVerification[0] != userHash && hashVerification == null) {
-                return null;
+                throw new NoSuchElementException();
+                
             } else if (hashVerification[0] == userHash) {
                 return hashVerification[2];
             }
